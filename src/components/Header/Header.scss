@@ -1,0 +1,27 @@
+@import '../../App.scss';
+
+.Header {
+    z-index: 1000;
+
+    ul {
+        text-decoration: none;
+        padding: 0;
+    }
+
+    .no-arrow::after {
+        display: none !important;
+    }
+
+    .dropdown-menu .dropdown-item:focus,
+    .dropdown-menu .dropdown-item:active,
+    .dropdown-menu .dropdown-item.active {
+        background-color: transparent !important;
+        color: inherit !important;
+    }
+
+    // شكل hover (اختياري)
+    .dropdown-menu .dropdown-item:hover {
+        background-color: $btn-hover-bg !important;
+        color: $First-Color !important;
+    }
+}

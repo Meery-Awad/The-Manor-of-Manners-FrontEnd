@@ -1,0 +1,167 @@
+// $First-Color: #d9b53c;
+// $Second-Color: #70caed;
+$First-Color: #2a143d;
+$Second-Color: #ACABAD;
+$background-color: azure;
+$Font-Color : rgb(155, 155, 155);
+$btn-color: #555;
+
+$btn-bg: #fff; // خلفية بيضاء
+$btn-hover-bg: #f0f0f0; // خلفية عند hover
+$btn-height: 40px; // ارتفاع ثابت
+$btn-padding: 0 15px; // حشو ثابت
+
+$light-bg: #f8f9fa;
+$alert-color : rgb(243, 98, 98);
+
+$Font-Size: 22px;
+$font-Size: 2rem;
+$margin-top: 40px;
+$top: 6rem;
+$width: 80vw;
+
+body {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $Font-Color;
+  background-color: $light-bg;
+
+
+}
+
+@mixin flexBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin ellipsis-horizontal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+$num : 3.5rem;
+
+@mixin btn {
+  background-color: $btn-bg;
+  color: $First-Color;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  border-radius: 8px;
+  height: $btn-height;
+  padding: $btn-padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: $btn-height;
+
+  box-shadow:
+
+    -2.72px -2.72px 3.2px #eeeeee inset,
+    3.2px 3.2px 3.2px #f6f6f6 inset;
+
+  &:hover {
+
+    transition: 0.4s box-shadow;
+    box-shadow:
+      -2.72px -2.72px 3.2px transparent,
+      0px 0px 6.4px transparent,
+      0px 0px 0px -1.6px #dbdbdb,
+      -2.72px -2.72px 3.2px #efefef inset,
+      3.2px 3.2px 3.2px #dadada inset;
+  }
+}
+
+.NoCourses {
+  width: $width;
+  height: 40vh;
+  @include flexBox();
+}
+
+.recommended {
+  margin: 1rem 0;
+
+  .topic {
+    font-size: $font-Size;
+
+    margin-bottom: 1rem;
+    text-align: center;
+    color: $First-Color;
+
+  }
+
+  .line-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .line {
+      width: 100%;
+      height: 3px;
+      background-color: $Second-Color; // First-Color
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    i {
+      color: $First-Color;
+      background-color: $light-bg; // لون الخلفية لتغطي الخط خلف الأيقونة
+      padding: 0 8px;
+      position: relative;
+      z-index: 2;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.noti {
+  text-align: center;
+  color: $alert-color;
+  margin-bottom: 2rem;
+}
+
+img {
+  object-fit: contain;
+}
+
+ .eye-icon {
+    position: absolute;
+    right: 15px;
+    color: #888;
+    cursor: pointer;
+    font-size: 15px;
+    background: transparent;
+  }
+
+  .eye-icon:hover {
+    color: $First-Color
+  }
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
