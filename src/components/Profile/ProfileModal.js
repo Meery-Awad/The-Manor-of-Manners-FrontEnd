@@ -3,6 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "./ProfileModal.scss";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useBetween } from "use-between";
 
 const ProfileModal = ({ show, handleClose, userDetails, setUserDetails }) => {
   const [formData, setFormData] = useState({
@@ -17,6 +19,8 @@ const ProfileModal = ({ show, handleClose, userDetails, setUserDetails }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error,setError]=useState('')
+  const state = useSelector((state) => state.data);
+  const {serverUrl } = useBetween(state.useShareState);
 
   useEffect(() => {
     if (userDetails) {
@@ -51,7 +55,7 @@ const ProfileModal = ({ show, handleClose, userDetails, setUserDetails }) => {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/users/${formData.id}`,
+        `${serverUrl}/api/users/${formData.id}`,
         formData
       );
       setUserDetails(res.data.user);

@@ -9,7 +9,7 @@ import RecordingControls from "./RecordingVideo";
 const JoinLeaveButtons = ({ joined, setJoined, localTracks, setLocalTracks, course, userDetails, admin, usersMap, setUsersMap }) => {
   const localTracksRef = useRef([]);
   const state = useSelector((state) => state.data);
-  const { setUserDetails } = useBetween(state.useShareState);
+  const { setUserDetails, serverUrl } = useBetween(state.useShareState);
   const [joinWithMic, setJoinWithMic] = useState(true);
   const [joinWithCam, setJoinWithCam] = useState(true);
   const leavingRef = useRef(false);
@@ -30,7 +30,7 @@ const JoinLeaveButtons = ({ joined, setJoined, localTracks, setLocalTracks, cour
   const handleJoinClick = async () => {
 
     try {
-      await axios.post(`http://localhost:5000/api/courses/${course._id}/join`, {
+      await axios.post(`${serverUrl}/api/courses/${course._id}/join`, {
         userId: userDetails.id || userDetails._id,
         name: userDetails.name,
         email: userDetails.email,
@@ -40,7 +40,7 @@ const JoinLeaveButtons = ({ joined, setJoined, localTracks, setLocalTracks, cour
     }
     try {
       
-      const response = await axios.post("http://localhost:5000/api/payments/UserCoursesStatus", {
+      const response = await axios.post(`${serverUrl}/api/payments/UserCoursesStatus`, {
         userId: userDetails.id|| userDetails._id,
         courseId: course._id,
         key: "2",

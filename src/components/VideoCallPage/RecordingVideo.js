@@ -10,7 +10,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
     const mediaRecorderRef = useRef(null);
     const screenStreamRef = useRef(null);
     const state = useSelector((state) => state.data);
-    const { reload, setReload, Loading, setLoading, } = useBetween(state.useShareState);
+    const { reload, setReload, Loading, setLoading, serverUrl } = useBetween(state.useShareState);
 
     const handleStart = async () => {
         try {
@@ -63,7 +63,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
 
         setLoading(!Loading)
         try {
-            await axios.post("http://localhost:5000/api/users/editUserCourses", formData, {
+            await axios.post(`${serverUrl}/api/users/editUserCourses`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             setReload(!reload)

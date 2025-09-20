@@ -10,18 +10,19 @@ const reminders = (state = [], action) => {
         const [allCourses, setAllCourses] = useState([])
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
-        const courseValid ='Please note that the course will be available to watch for only one week after the course date'
-        
+        const serverUrl = 'https://the-manor-of-manners-backend-7pw8.onrender.com'
+        const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
+
         const [userDetails, setUserDetails] = useState(() => {
             const stored = localStorage.getItem("user");
             return stored ? JSON.parse(stored) : {
-                id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: [] 
+                id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: []
             };
         });
-        const [updatedData, setUpdatedData]= useState(userDetails);
+        const [updatedData, setUpdatedData] = useState(userDetails);
         console.log(updatedData)
-      
-        
+
+
         const [selectedCourse, setSelectedCourse] = useState(0); // ✅ تخزين الكورس المحدد
         const [showDetails, setShowDetails] = useState(false);
         const color = '#817f7fff'
@@ -61,12 +62,12 @@ const reminders = (state = [], action) => {
             recommended: false,
             img: null,
             categories: [],
-             bookedUsers: [],
-      joinedUsers: [],
+            bookedUsers: [],
+            joinedUsers: [],
 
         })
         const admin = { email: 'iuliana.esanu28@gmail.com', passport: 'julia12345' };
-        
+
 
         useEffect(() => {
             setLoading(true)
@@ -83,8 +84,8 @@ const reminders = (state = [], action) => {
             };
 
             CoursesData();
-        }, [reload]);           
-        
+        }, [reload]);
+
         useEffect(() => {
             localStorage.setItem("user", JSON.stringify(userDetails));
         }, [userDetails]);
@@ -100,9 +101,10 @@ const reminders = (state = [], action) => {
             categories,
             allCourses,
             selectedCourse, setSelectedCourse,
-            showDetails,setShowDetails,
+            showDetails, setShowDetails,
             updatedData, setUpdatedData,
-            courseValid
+            courseValid,
+            serverUrl
         };
     };
 

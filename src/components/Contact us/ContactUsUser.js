@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Mail, Phone, MessageCircle } from "lucide-react";
 import './ContactUsUser.scss';
+import { useBetween } from "use-between";
+import { useSelector } from "react-redux";
 
 const ContactUsUser = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [error, setError] = useState('');
+
+    const state = useSelector((state) => state.data);
+  const {serverUrl } = useBetween(state.useShareState);
 
   const handleChange = (e) => {setFormData({ ...formData, [e.target.name]: e.target.value }) ; setError('')};
 
@@ -18,7 +23,7 @@ const ContactUsUser = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/contactUs", formData);
+      const res = await axios.post(`${serverUrl}/api/contactUs`, formData);
       alert(res.data.message);
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (err) {

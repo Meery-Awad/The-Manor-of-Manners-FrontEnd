@@ -184,7 +184,7 @@ export const joinCallHandler = async (
   const { name, email } = userDetails;
 
   try {
-    const res = await axios.get("http://localhost:5000/api/agora/agora-token", { params: { courseId: course._id, uid: userId } });
+    const res = await axios.get("http://the-manor-of-manners-backend.onrender.com/api/agora/agora-token", { params: { courseId: course._id, uid: userId } });
     const { token, appID, channelName } = res.data;
 
     client.removeAllListeners();
@@ -209,7 +209,7 @@ export const joinCallHandler = async (
     setJoined(true);
     setUsersMap(prev => ({ ...prev, [userId]: { name, email } }));
 
-    const { data: joinedUsers } = await axios.get(`http://localhost:5000/api/courses/${course._id}/joinedUsers`);
+    const { data: joinedUsers } = await axios.get(`http://the-manor-of-manners-backend.onrender.com/api/courses/${course._id}/joinedUsers`);
     joinedUsers.forEach(u => {
       if (u.userId !== userId && !document.getElementById(`card-${u.userId}`)) {
         createVideoCard(u.userId, u.name, admin.email, u.email, false);
@@ -235,7 +235,7 @@ export const joinCallHandler = async (
       let userEmail = usersMap[remoteUser.uid]?.email || "";
 
       if (!usersMap[remoteUser.uid]) {
-        const { data: joinedUsers } = await axios.get(`http://localhost:5000/api/courses/${course._id}/joinedUsers`);
+        const { data: joinedUsers } = await axios.get(`http://the-manor-of-manners-backend.onrender.com/api/courses/${course._id}/joinedUsers`);
         const u = joinedUsers.find(x => x.userId === remoteUser.uid);
         if (u) {
           userName = u.name;
@@ -278,7 +278,7 @@ export const leaveCallHandler = async (localTracksRef, course, userDetails, setJ
     try { const toUnpublish = tracks.filter(t => t?.enabled); if (toUnpublish.length) await client.unpublish(toUnpublish); } catch {}
     localTracksRef.current = [];
     await client.leave();
-    await axios.post(`http://localhost:5000/api/courses/${course._id}/leave`, { userId: userDetails.id || userDetails._id });
+    await axios.post(`http://the-manor-of-manners-backend.onrender.com/api/courses/${course._id}/leave`, { userId: userDetails.id || userDetails._id });
     setJoined(false);
     const container = document.getElementById("video-container");
     if (container) container.innerHTML = "";

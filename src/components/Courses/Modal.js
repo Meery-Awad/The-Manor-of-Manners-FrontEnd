@@ -20,6 +20,7 @@ const CourseModal = () => {
     reload,
     setReload,
     setEditOrAdd,
+    serverUrl
   } = useBetween(state.useShareState);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -124,7 +125,7 @@ const CourseModal = () => {
         img: courseDetails.img || noPhoto
       };
       setLoading(true);
-      axios.post('http://localhost:5000/api/courses', courseData, { headers })
+      axios.post(`${serverUrl}/api/courses`, courseData, { headers })
         .then((res) => {
           console.log("Course added:", res.data);
           setModalIsOpen(false);
@@ -138,7 +139,7 @@ const CourseModal = () => {
           setLoading(false);
         });
     } else {
-      axios.put(`http://localhost:5000/api/courses/${id}`, courseDetails, { headers })
+      axios.put(`${serverUrl}/api/courses/${id}`, courseDetails, { headers })
         .then((res) => {
           console.log("Course updated:", res.data);
           setModalIsOpen(false);

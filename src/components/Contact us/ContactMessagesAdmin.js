@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './ContactMessagesAdmin.scss';
+import { useSelector } from "react-redux";
+import { useBetween } from "use-between";
 
 const ContactMessagesAdmin = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const state = useSelector((state) => state.data);
+  const {serverUrl} = useBetween(state.useShareState);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/contactUs");
+        const res = await axios.get(`${serverUrl}/api/contactUs`);
         setMessages(res.data);
       } catch (err) {
         alert("Failed to load messages");

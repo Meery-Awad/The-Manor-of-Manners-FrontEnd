@@ -19,7 +19,8 @@ const CoursesContaner = ({ type = "all" }) => {
     setEditOrAdd,
     reload,
     setReload,
-    setLoading, showDetails, setShowDetails, selectedCourse, setSelectedCourse
+    setLoading, showDetails, setShowDetails, selectedCourse, setSelectedCourse,
+    serverUrl
   } = useBetween(state.useShareState);
 
   const [indexDelete, setIndexDelete] = useState(-1);
@@ -42,7 +43,7 @@ const CoursesContaner = ({ type = "all" }) => {
     setLoading(true);
     const CourseToDelete = courses[index]._id;
     axios
-      .delete(`http://localhost:5000/api/courses/${CourseToDelete}`)
+      .delete(`${serverUrl}/api/courses/${CourseToDelete}`)
       .then(() => {
         setReload(!reload);
         setLoading(false);
@@ -71,7 +72,7 @@ const CoursesContaner = ({ type = "all" }) => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/payments/create-checkout-session", {
+      const res = await axios.post(`${serverUrl}api/payments/create-checkout-session`, {
         courseName,
         price,
         courseId,

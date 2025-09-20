@@ -7,7 +7,7 @@ import "./SuccessPayment.scss";
 
 const SuccessPayment = () => {
   const state = useSelector((state) => state.data);
-  const { userDetails, setUserDetails, courseValid , reload, setReload, } = useBetween(state.useShareState);
+  const { userDetails, setUserDetails, courseValid , reload, setReload,serverUrl } = useBetween(state.useShareState);
   const navigate = useNavigate();
   const addedRef = useRef(false);
   const [course, setCourse] = useState({});
@@ -29,7 +29,7 @@ const SuccessPayment = () => {
       try {
       
         const response = await axios.post(
-          "http://localhost:5000/api/payments/UserCoursesStatus",
+          `${serverUrl}/api/payments/UserCoursesStatus`,
           { userId: userDetails.id, courseId, key: "1" }
         );
 

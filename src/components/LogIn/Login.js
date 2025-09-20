@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const LoginPage = () => {
   const state = useSelector((state) => state.data);
-  const { userDetails, setUserDetails, Loading, setLoading, updatedData, setUpdatedData } =
+  const { userDetails, setUserDetails, Loading, setLoading, updatedData, setUpdatedData, serverUrl } =
     useBetween(state.useShareState);
   const { email, password, confirmPassword } = userDetails;
   const [erorr, setErorr] = useState('');
@@ -51,7 +51,7 @@ const LoginPage = () => {
 
     if (isRegister) {
       axios
-        .post('http://localhost:5000/api/users/register', userDetails, { headers })
+        .post(`${serverUrl}/api/users/register`, userDetails, { headers })
         .then((res) => {
           console.log('user registered success');
           setLoading(false);
@@ -64,7 +64,7 @@ const LoginPage = () => {
         });
     } else {
       axios
-        .post('http://localhost:5000/api/users/login', { email, password }, { headers })
+        .post(`${serverUrl}/api/users/login`, { email, password }, { headers })
         .then((res) => {
           console.log('User data:', res.data);
           const newUser = {
