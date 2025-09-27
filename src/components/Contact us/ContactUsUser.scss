@@ -2,19 +2,16 @@
 @import '../../App.scss';
 
 .contact-us {
-  min-height: 100vh;
-  width: $width;
  
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 1.5rem;
  
 
   .header {
     text-align: center;
     max-width: 600px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 
     .header-img {
       width: 100px;
@@ -111,7 +108,7 @@
           color: $Second-Color;
 
           &:last-child {
-            color: #16a34a; // واتساب أخضر
+            color: #16a34a; 
           }
         }
       }

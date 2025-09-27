@@ -6,16 +6,16 @@ $background-color: azure;
 $Font-Color : rgb(155, 155, 155);
 $btn-color: #555;
 
-$btn-bg: #fff; // خلفية بيضاء
-$btn-hover-bg: #f0f0f0; // خلفية عند hover
-$btn-height: 40px; // ارتفاع ثابت
-$btn-padding: 0 15px; // حشو ثابت
+$btn-bg: #fff; 
+$btn-hover-bg: #f0f0f0; 
+$btn-height: 40px; 
+$btn-padding: 0 15px; 
 
 $light-bg: #f8f9fa;
 $alert-color : rgb(243, 98, 98);
 
 $Font-Size: 22px;
-$font-Size: 2rem;
+$font-Size: 1.8rem;
 $margin-top: 40px;
 $top: 6rem;
 $width: 80vw;
@@ -27,8 +27,21 @@ body {
   align-items: center;
   color: $Font-Color;
   background-color: $light-bg;
+  padding: 0 25px;
 
 
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* ارتفاع الصفحة كامل */
+}
+
+.content {
+  flex: 1;
+  /* يشغل كل المساحة المتاحة */
 }
 
 @mixin flexBox {
@@ -84,8 +97,8 @@ $num : 3.5rem;
 }
 
 .NoCourses {
-  width: $width;
-  height: 40vh;
+  width: 90vw;
+
   @include flexBox();
 }
 
@@ -138,18 +151,37 @@ img {
   object-fit: contain;
 }
 
- .eye-icon {
-    position: absolute;
-    right: 15px;
-    color: #888;
-    cursor: pointer;
-    font-size: 15px;
-    background: transparent;
-  }
 
-  .eye-icon:hover {
-    color: $First-Color
-  }
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  color: #888;
+  cursor: pointer;
+  font-size: 15px;
+  background: transparent;
+}
+
+.eye-icon:hover {
+  color: $First-Color
+}
+
+.modal-header .btn-close {
+  color: $First-Color !important;
+}
+
+.modal-content .deleteImgBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #e6f0ff;
+  color: red;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {

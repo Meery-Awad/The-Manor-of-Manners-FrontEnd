@@ -11,12 +11,13 @@ const ContactMessagesAdmin = () => {
   const {serverUrl} = useBetween(state.useShareState);
 
   useEffect(() => {
+     window.scrollTo(0, 0);
     const fetchMessages = async () => {
       try {
         const res = await axios.get(`${serverUrl}/api/contactUs`);
         setMessages(res.data);
       } catch (err) {
-        alert("Failed to load messages");
+        alert(" Failed to load messages , Please try again");
       } finally {
         setLoading(false);
       }
@@ -30,7 +31,7 @@ const ContactMessagesAdmin = () => {
       {loading ? (
         <p>Loading messages...</p>
       ) : messages.length === 0 ? (
-        <p>No messages found.</p>
+        <div className="NoMessage">No messages found.</div>
       ) : (
         <div className="messages-list">
           {messages.map((msg) => (
@@ -41,6 +42,7 @@ const ContactMessagesAdmin = () => {
               <p><strong>Date:</strong> {new Date(msg.createdAt).toLocaleString()}</p>
               <div className="message-body">
                 <strong>Message:</strong>
+              
                 <p>{msg.message}</p>
               </div>
             </div>

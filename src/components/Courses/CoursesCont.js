@@ -6,8 +6,10 @@ import "./CoursesCont.scss";
 import Delete from "./Delete";
 import { useWatch } from "./Watch";
 import ModalMessage from "./AlertModal/ModalMessage";
-import CourseDetailsModal from "./CourseDetailsModal"; // ✅ استدعاء مودال التفاصيل
+import CourseDetailsModal from "./CourseDetailsModal"; 
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import BookedUsersModal from "./bookedUserModal";
 
 const CoursesContaner = ({ type = "all" }) => {
   const state = useSelector((state) => state.data);
@@ -20,14 +22,27 @@ const CoursesContaner = ({ type = "all" }) => {
     reload,
     setReload,
     setLoading, showDetails, setShowDetails, selectedCourse, setSelectedCourse,
-    serverUrl
+    serverUrl, pageDescription, pageKeywords
   } = useBetween(state.useShareState);
+
+  const [showBookedUsers, setShowBookedUsers] = useState(false);
+  const [bookedUsersList, setBookedUsersList] = useState([]);
+
+  const openBookedUsers = (users) => {
+    setBookedUsersList(users);
+    setShowBookedUsers(true);
+  };
+
+  const closeBookedUsers = () => setShowBookedUsers(false);
 
   const [indexDelete, setIndexDelete] = useState(-1);
   const { handleWatch, showModal, setShowModal, modalMsg, modalTitle, setModalMsg } = useWatch();
+  useEffect(() => {
 
+    window.scrollTo(0, 0);
+  }, []);
   const location = useLocation();
-  
+
   const openDetails = (course) => {
 
     setSelectedCourse(course);
@@ -49,7 +64,7 @@ const CoursesContaner = ({ type = "all" }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error deleting Course:", error);
+        alert(" Error while deleting the course, please try again.");
       });
   };
 
@@ -72,7 +87,7 @@ const CoursesContaner = ({ type = "all" }) => {
     }
 
     try {
-      const res = await axios.post(`${serverUrl}api/payments/create-checkout-session`, {
+      const res = await axios.post(`${serverUrl}/api/payments/create-checkout-session`, {
         courseName,
         price,
         courseId,
@@ -81,7 +96,7 @@ const CoursesContaner = ({ type = "all" }) => {
 
       window.location.href = res.data.url;
     } catch (err) {
-      console.error("Error creating checkout session:", err);
+      alert(" Error creating checkout session please try again");
     }
 
   };
@@ -92,7 +107,7 @@ const CoursesContaner = ({ type = "all" }) => {
       type === "recommended"
         ? courses.filter((course) => course.recommended)
         : courses;
-    if (displayedCourses.length === 0) return <p className="NoCourses">No courses available.</p>;
+    if (displayedCourses.length === 0) return <p className="NoCourses"> No {type == "recommended" ? 'recommended' : ''} courses available.`</p>;
 
     return displayedCourses.map((item, index) => {
 
@@ -102,13 +117,21 @@ const CoursesContaner = ({ type = "all" }) => {
         <div
           className="CourseItem"
           key={item._id || index}
-          onClick={() => openDetails(item)} // ✅ فتح مودال التفاصيل عند الضغط على الكرت
+          onClick={() => openDetails(item)} 
           style={{ cursor: "pointer" }}
         >
           <div className="imageWrapper">
             <img src={item.img} alt="Course" />
-            <span className="particNum">
-              <i className="fas fa-user"></i> {Math.ceil(item.bookedUsers.length/2)}
+            <span className="particNum"
+              style={{ background: userDetails.email == admin.email ? '#2a143d' : '#ACABAD' }}
+              onClick={(e) => {
+                if (userDetails.email == admin.email) {
+                  e.stopPropagation();
+                  openBookedUsers(item.bookedUsers);
+                }
+
+              }}>
+              <i className="fas fa-user"></i> {Math.ceil(item.bookedUsers.length / 2)}
             </span>
           </div>
           <div className="details">
@@ -117,7 +140,7 @@ const CoursesContaner = ({ type = "all" }) => {
               {userDetails.email === admin.email && type !== "recommended" && (
                 <div
                   className="icons "
-                  onClick={(e) => e.stopPropagation()} // ✅ منع فتح المودال عند ضغط الأيقونات
+                  onClick={(e) => e.stopPropagation()} 
                 >
 
                   <i
@@ -145,19 +168,15 @@ const CoursesContaner = ({ type = "all" }) => {
               <button
                 className="courseBtn"
                 onClick={(e) => {
-                  e.stopPropagation(); // ✅ منع فتح المودال عند الضغط على الزر
+                  e.stopPropagation(); 
                   const now = new Date();
 
-                  // نحول تاريخ الكورس لشيء نقدر نركب عليه الوقت
                   const courseDate = new Date(item.date);
 
-                  // نركب وقت النهاية
                   const [endHour, endMinute] = item.endtime.split(":");
                   const endDateTime = new Date(courseDate);
                   endDateTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
 
-                  // الشرط
-                
                   if (now > endDateTime) {
                     openDetails(item);
 
@@ -174,7 +193,7 @@ const CoursesContaner = ({ type = "all" }) => {
               <button
                 className="courseBtn"
                 onClick={(e) => {
-                  e.stopPropagation(); // ✅ منع فتح المودال عند الضغط على الزر
+                  e.stopPropagation(); 
                   handleCheckout(item.name, item.price, item._id);
                 }}
               >
@@ -186,9 +205,15 @@ const CoursesContaner = ({ type = "all" }) => {
       );
     });
   };
-
   return (
     <div className="itemsContaner">
+      <Helmet>
+        <title>The Manor of Manners</title>
+        <meta name="description" content={pageDescription} />
+        <meta name="keywords" content={pageKeywords} />
+        <meta property="og:title" content="Courses - The Manor of Manners" />
+        <meta property="og:description" content={pageDescription} />
+      </Helmet>
 
       <div className="mainContaner">
         {Array.isArray(courses) ? (
@@ -198,7 +223,6 @@ const CoursesContaner = ({ type = "all" }) => {
         )}
       </div>
 
-
       <Delete index={indexDelete} setIndexDelete={setIndexDelete} onDelete={deleteCourse} />
 
       <ModalMessage
@@ -206,10 +230,8 @@ const CoursesContaner = ({ type = "all" }) => {
         onClose={() => setShowModal(false)}
         message={modalMsg}
         title={modalTitle}
-
       />
 
-      {/* ✅ مودال التفاصيل */}
       <CourseDetailsModal
         show={showDetails}
         onClose={closeDetails}
@@ -218,7 +240,15 @@ const CoursesContaner = ({ type = "all" }) => {
         onBook={handleCheckout}
         onWatch={handleWatch}
       />
+      <BookedUsersModal
+        show={showBookedUsers}
+        onClose={closeBookedUsers}
+        users={bookedUsersList}
+        userDetails={userDetails}
+        admin={admin}
+      />
     </div>
+
   );
 };
 

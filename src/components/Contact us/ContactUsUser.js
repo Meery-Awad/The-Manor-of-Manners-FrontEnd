@@ -1,38 +1,52 @@
 // ContactUs.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Mail, Phone, MessageCircle } from "lucide-react";
 import './ContactUsUser.scss';
 import { useBetween } from "use-between";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 const ContactUsUser = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [error, setError] = useState('');
 
-    const state = useSelector((state) => state.data);
-  const {serverUrl } = useBetween(state.useShareState);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const handleChange = (e) => {setFormData({ ...formData, [e.target.name]: e.target.value }) ; setError('')};
+  const state = useSelector((state) => state.data);
+  const { serverUrl ,  pageDescription, pageKeywords} = useBetween(state.useShareState);
+
+  const handleChange = (e) => { 
+    setFormData({ ...formData, [e.target.name]: e.target.value }); 
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!formData.name || !formData.email || !formData.phone || !formData.message)
-    {
-      setError('Please enter all the fields *')
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      setError('Please enter all the fields *');
       return;
     }
     try {
-      const res = await axios.post(`${serverUrl}/api/contactUs`, formData);
-      alert(res.data.message);
+      await axios.post(`${serverUrl}/api/contactUs`, formData);
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
-      alert("Failed to send message");
+      alert(" Failed to send message, please try again");
     }
   };
 
   return (
     <div className="contact-us">
+      <Helmet>
+        <title>The Manor of Manners</title>
+        <meta name="description" content={pageDescription} />
+        <meta name="keywords" content={pageKeywords} />
+        <meta property="og:title" content="Contact Us - The Manor of Manners" />
+        <meta property="og:description" content={pageDescription} />
+      </Helmet>
+
       <div className="header">
         <img
           src="https://cdn-icons-png.flaticon.com/512/295/295128.png"
@@ -45,7 +59,7 @@ const ContactUsUser = () => {
 
       <div className="contact-container">
         <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="error" style={{color:'red'}}>{error}</div>
+          <div className="error" style={{ color: 'red' }}>{error}</div>
           <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} />
           <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
           <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />

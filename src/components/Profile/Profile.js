@@ -11,7 +11,8 @@ const Profile = () => {
   const state = useSelector((state) => state.data);
   const { userDetails, setUserDetails, showDetails, setShowDetails, selectedCourse, setSelectedCourse, courseValid, setUpdatedData } = useBetween(state.useShareState);
   const { name, img, courses, email } = userDetails;
-
+  const [watchedCourseLeng, setWatchedCourseLeng] = useState(0);
+  const [bookedCourseLeng, setBookedCourseLeng] = useState(0)
 
   const [activeTab, setActiveTab] = useState("watched");
   const [watchedCourses, setWatchedCourses] = useState([]);
@@ -26,17 +27,37 @@ const Profile = () => {
   useEffect(() => {
 
     if (courses && courses.length > 0) {
-      console.log(courses)
+
       const watched = courses.filter((course) => course.status === "watched" && course.link);
       setWatchedCourses(watched);
       setBookingCourses(courses);
     }
   }, [userDetails]);
+  useEffect(() => {
+    if (watchedCourses) {
+      setWatchedCourseLeng(
+        [...new Map(watchedCourses.map((c) => [c._id, c])).values()].length
+      );
+    }
+  }, [watchedCourses]);
 
+  useEffect(() => {
+    if (bookingCourses) {
+      setBookedCourseLeng(
+        [...new Map(bookingCourses.map((c) => [c._id, c])).values()].length
+      );
+    }
+  }, [bookingCourses]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const renderVideos = (coursesArray) => {
     const uniqueCourses = [
       ...new Map(coursesArray.map((c) => [c._id, c])).values(),
     ];
+
 
     return (
       <div className="VideosGrid">
@@ -79,13 +100,13 @@ const Profile = () => {
           className={activeTab === "watched" ? "active" : ""}
           onClick={() => setActiveTab("watched")}
         >
-          <i className="fas fa-check"></i> Videos to watch({Math.ceil(watchedCourses.length/2)})
+          <i className="fas fa-check"></i> Videos to watch({watchedCourseLeng})
         </button>
         <button
           className={activeTab === "registered" ? "active" : ""}
           onClick={() => setActiveTab("registered")}
         >
-          <i className="fas fa-hourglass-half"></i> Booked Videos ({Math.ceil(bookingCourses.length/2)})
+          <i className="fas fa-hourglass-half"></i> Booked Videos ({bookedCourseLeng})
         </button>
       </div>
       <p className='courseValid' style={{ color: 'rgb(243, 98, 98)' }}>{courseValid} </p>

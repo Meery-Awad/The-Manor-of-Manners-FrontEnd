@@ -10,8 +10,17 @@
         url('../../images/logo.jpg') no-repeat center center;
 
     background-size: 100vw 100vh;
-  
+    
 
+    .error {
+        color:rgb(206, 39, 39);
+    }
+    
+    .img {
+        width: 100px;
+        height: 5%;
+        padding: 5px;
+    }
 
     .text-center {
         color: white;
@@ -25,7 +34,7 @@
         width: 350px;
         text-align: center;
         margin-top: $top;
-          
+
 
         h2 {
             margin-bottom: 2rem;
@@ -62,6 +71,7 @@
         }
 
         .login-btn {
+
             width: 100%;
             padding: 0.75rem 1rem;
             border: none;
@@ -111,10 +121,10 @@
 
 @media (max-width: 768px) {
 
-.login-page {
-    .login-card {
-        margin-top: 0;
+    .login-page {
+        .login-card {
+            margin-top: 0;
+        }
     }
-}
 
 }

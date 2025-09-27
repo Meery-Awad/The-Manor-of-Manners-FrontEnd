@@ -21,7 +21,7 @@ const CoursesPage = () => {
         </div>
 
         <div className="row1">
-          <SortAndFilter />     
+          <SortAndFilter/>     
           <SearchBox />
           <CourseModal />
           

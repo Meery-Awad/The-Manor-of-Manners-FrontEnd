@@ -4,8 +4,19 @@
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
+
+
     font-family: 'Arial', sans-serif;
     color: #333;
+
+    .NoMessage {
+
+        margin: 0;
+
+        text-align: center;
+
+
+    }
 
     h1 {
         text-align: center;
@@ -40,7 +51,8 @@
             p {
                 color: $Font-Color;
             }
-            strong{
+
+            strong {
                 color: #333;
             }
 

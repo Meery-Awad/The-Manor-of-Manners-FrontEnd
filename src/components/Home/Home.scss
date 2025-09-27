@@ -2,7 +2,11 @@
 
 .Home {
     margin-top: $top ;
-    width: $width;
+    
+    .all-courses{
+        text-decoration: underline;
+        color: $First-Color;
+    }
 
     .recommended {
 

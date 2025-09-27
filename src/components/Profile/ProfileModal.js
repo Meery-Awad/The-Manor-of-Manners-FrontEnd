@@ -61,11 +61,9 @@ const ProfileModal = ({ show, handleClose, userDetails, setUserDetails }) => {
       setUserDetails(res.data.user);
       handleClose();
     } catch (err) {
-      console.error(
-        "Error updating profile:",
-        err.response?.data 
+      alert(
+        " Server error during profile update, please try again",  
       );
-      setError(err.response?.data?.message)
     }
 
   };

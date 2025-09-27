@@ -32,8 +32,8 @@ const Slider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 3000); // كل 3 ثواني
-    return () => clearInterval(interval); // تنظيف الانترفال عند فك المكون
+    }, 3000); // every 3 second
+    return () => clearInterval(interval); 
   }, [current]);
 
   return (
@@ -67,7 +67,7 @@ const Slider = () => {
       {/* Controls */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-2 -translate-y-1/2 bg-white p-1  z-20"
+        className="absolute top-1/2 left-2 -translate-y-1 bg-white p-1  z-20"
 
       >
         {" < "}

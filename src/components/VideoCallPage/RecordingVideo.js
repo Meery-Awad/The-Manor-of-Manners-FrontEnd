@@ -31,13 +31,13 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
                 mediaRecorderRef.current = mediaRecorder;
                 mediaRecorder.start();
             } else if (mediaRecorderRef.current.state === "paused") {
-                mediaRecorderRef.current.resume(); // استئناف بعد توقف
+                mediaRecorderRef.current.resume(); 
             }
 
             setIsRecording(true);
         } catch (err) {
-            console.error("Error starting screen recording:", err);
-            alert("❌ Failed to start screen recording. Please make sure permissions are granted.");
+           
+            alert(" Failed to start screen recording. Please make sure permissions are granted.");
         }
     };
 
@@ -45,8 +45,8 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
         if (!mediaRecorderRef.current) return;
 
         if (mediaRecorderRef.current.state === "recording") {
-            mediaRecorderRef.current.pause();           // إيقاف مؤقت فقط
-            mediaRecorderRef.current.requestData();     // حفظ chunk الحالي
+            mediaRecorderRef.current.pause();          
+            mediaRecorderRef.current.requestData();     
             setIsRecording(false);
         }
     };
@@ -70,9 +70,8 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
             setLoading(!Loading)
             alert("✅ The video has been uploaded. The video link has been saved in the course.");
         } catch (err) {
-            console.error(err);
             
-            alert("❌ Failed to upload the video");
+            alert(" Failed to upload the video");
         }
 
         setChunks([]);
@@ -87,7 +86,6 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
         setIsRecording(false);
     };
 
-    // الأدمن فقط
     if (!userDetails.email || userDetails.email !== admin.email) return null;
     const userEmail = userDetails.email
 

@@ -10,8 +10,11 @@ const reminders = (state = [], action) => {
         const [allCourses, setAllCourses] = useState([])
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
+        //  const serverUrl = 'http://localhost:5000'
         const serverUrl = 'https://the-manor-of-manners-backend-7pw8.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
+        const pageDescription = "Explore online etiquette courses at The Manor of Manners. Learn social skills, professional behavior, and proper manners through interactive video lessons and expert guidance.";
+        const pageKeywords = "online etiquette courses, manners training, social skills, professional behavior, The Manor of Manners, online learning, etiquette lessons";
 
         const [userDetails, setUserDetails] = useState(() => {
             const stored = localStorage.getItem("user");
@@ -20,8 +23,6 @@ const reminders = (state = [], action) => {
             };
         });
         const [updatedData, setUpdatedData] = useState(userDetails);
-        console.log(updatedData)
-
 
         const [selectedCourse, setSelectedCourse] = useState(0); // ✅ تخزين الكورس المحدد
         const [showDetails, setShowDetails] = useState(false);
@@ -68,18 +69,16 @@ const reminders = (state = [], action) => {
         })
         const admin = { email: 'iuliana.esanu28@gmail.com', passport: 'julia12345' };
 
-
         useEffect(() => {
             setLoading(true)
             const CoursesData = async () => {
                 try {
-                    const { data } = await axios.get("http://localhost:5000/api/courses");
-                    console.log(data)
+                    const { data } = await axios.get(`${serverUrl}/api/courses`);
                     setCourses(data);
                     setAllCourses(data)
                     setLoading(false)
                 } catch (error) {
-                    console.log(error);
+                    alert("Error loading the page, please try again");
                 }
             };
 
@@ -104,7 +103,8 @@ const reminders = (state = [], action) => {
             showDetails, setShowDetails,
             updatedData, setUpdatedData,
             courseValid,
-            serverUrl
+            serverUrl,
+            pageDescription, pageKeywords
         };
     };
 

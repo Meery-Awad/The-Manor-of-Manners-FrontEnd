@@ -5,22 +5,25 @@ import { useEffect, useState } from "react";
 
 
 const CourseDetailsModal = ({ show, onClose, course, onWatch, onBook, userDetails }) => {
-    const [booked, setBokeed] = useState(false)
+    const [booked, setBooked] = useState('')
 
     useEffect(() => {
+        if (course && userDetails?.courses) {
+            const matchedCourse = userDetails.courses.find((c) => c._id === course._id);
 
-        if (course) {
-           
-            const isAlreadyBooked = userDetails.courses.some((c) => c._id === course._id);
-            setBokeed(isAlreadyBooked);
+            if (matchedCourse) {
+                
+                setBooked(matchedCourse.status || "booked");
+               
+            }
         }
-    }, [course])
+    }, [course, userDetails]);
 
     if (!course) return null;
 
     return (
         <Modal show={show} onHide={onClose} centered size="lg">
-            <Modal.Header >
+            <Modal.Header closeButton >
                 <Modal.Title>{course.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -41,7 +44,7 @@ const CourseDetailsModal = ({ show, onClose, course, onWatch, onBook, userDetail
                     }
 
                     {booked && (
-                        <p className="booked-label"><i className="fas fa-check"></i> Booked</p>
+                        <p className="booked-label"><i className="fas fa-check"></i> {booked}</p>
                     )}
 
                     <p><strong>Course Price:</strong> {course.price} $</p>
@@ -54,16 +57,12 @@ const CourseDetailsModal = ({ show, onClose, course, onWatch, onBook, userDetail
                 <Button variant="secondary" onClick={onClose}>
                     Close
                 </Button>
-                {booked ? (
-                    // <Button variant="primary" onClick={() => onWatch(course)}>
-                    //     Watch
-                    // </Button>
-                    <div></div>
-                ) : (
+
+                {booked === '' &&
                     <Button variant="primary" onClick={() => onBook(course.name, course.price, course._id)}>
                         Book
                     </Button>
-                )}
+                }
             </Modal.Footer>
         </Modal>
     );

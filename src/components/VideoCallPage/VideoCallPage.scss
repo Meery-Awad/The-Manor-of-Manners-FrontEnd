@@ -11,7 +11,7 @@
     font-weight: 500;
   }
 
-  // حاوية الأزرار لتوسيطهم
+
   .btn-wrapper {
     display: flex;
     justify-content: center;
@@ -57,12 +57,13 @@
     width: 100%;
     height: 100vh;
 
-   .admin-card {
-        grid-column: 1;
-        grid-row: 1;
+    .admin-card {
+      grid-column: 1;
+      grid-row: 1;
 
-        background: #000;
-      }
+      background: #000;
+    }
+
     .others-grid {
       grid-column: 2;
       display: grid;
@@ -99,7 +100,7 @@
 
       }
 
-      /* أيقونات الحالة للمستخدمين الآخرين */
+
       .video-status {
         display: flex;
         justify-content: center;
@@ -108,17 +109,14 @@
 
         i {
           font-size: 16px;
-          color: $Font-Color; // لون ثابت للمستخدمين الآخرين
-          background: white; // لون أخضر للمستخدم الحالي
+          color: $Font-Color;
+          background: white;
           border: 1px solid $Font-Color;
           border-radius: 5px;
           padding: 5px 8px;
         }
       }
 
-   
-
-      /* أزرار التحكم للمستخدم الحالي */
       .video-controls {
         display: flex;
         justify-content: center;
@@ -126,7 +124,7 @@
         padding: 3px;
 
         button {
-          background: rgba(0, 128, 0, 0.7); // لون أخضر للمستخدم الحالي
+          background: rgba(0, 128, 0, 0.7);
           border: none;
           border-radius: 5px;
           padding: 5px 8px;
@@ -145,6 +143,8 @@
     }
   }
 
+
+
   @media (max-width: 768px) {
     .video-container {
       grid-template-columns: 1fr;
@@ -159,4 +159,33 @@
       }
     }
   }
+}
+
+$righSide: 5px;
+$top: 80px;
+
+#admin-hamburger {
+  position: absolute;
+  right: $righSide;
+  top: $top;
+  font-weight: bold;
+  color: $First-Color;
+  border: 1px solid $First-Color;
+  box-shadow: 1px 1px 1px $Second-Color;
+  padding: 25px 2px;
+  font-size: 20px;
+}
+
+#admin-menu {
+  position: absolute;
+  right: $righSide + 22px;
+  top: $top;
+  padding: 20px;
+  background-color: white;
+  border: 0.5px solid $Second-Color;
+  z-index: 1000;
+  width: 20vw;
+  gap:50px;
+  color:#333
+  
 }

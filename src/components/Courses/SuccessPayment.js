@@ -7,14 +7,13 @@ import "./SuccessPayment.scss";
 
 const SuccessPayment = () => {
   const state = useSelector((state) => state.data);
-  const { userDetails, setUserDetails, courseValid , reload, setReload,serverUrl } = useBetween(state.useShareState);
+  const { userDetails, setUserDetails, courseValid, reload, setReload, serverUrl } = useBetween(state.useShareState);
   const navigate = useNavigate();
   const addedRef = useRef(false);
   const [course, setCourse] = useState({});
 
-  // إضافة الكورس بعد الدفع
-  
   useEffect(() => {
+       
     const addCourse = async () => {
       if (addedRef.current) return;
 
@@ -25,25 +24,22 @@ const SuccessPayment = () => {
 
       const isAlreadyBooked = userDetails.courses.some(c => c._id === courseId);
       if (isAlreadyBooked) return;
-   
+
       try {
-      
+
         const response = await axios.post(
           `${serverUrl}/api/payments/UserCoursesStatus`,
-          { userId: userDetails.id, courseId, key: "1" }
+          { userId: userDetails.id, courseId, userImg:userDetails.img, key: "1" }
         );
 
         const { course1 } = response.data;
 
         if (course1) {
-          // تحديث بيانات المستخدم
           setUserDetails(prev => ({
             ...prev,
             courses: [...prev.courses, { ...course1, status: "booking" }]
           }));
 
-          // إنشاء تاريخ صلاحية الكورس
-          
           const courseDay = new Date(course1.date);
           const sevenDaysLater = new Date(courseDay);
           sevenDaysLater.setDate(courseDay.getDate() + 7);
@@ -67,18 +63,20 @@ const SuccessPayment = () => {
           );
 
           addedRef.current = true;
+         
           setReload(!reload)
-        
+
         }
       } catch (err) {
-        console.error("Error adding course:", err);
+
+        alert(" Error adding course, please try again");
       }
     };
 
     addCourse();
   }, [userDetails.id, userDetails.courses, setUserDetails]);
 
-  // قراءة البيانات بعد الريلود
+
   useEffect(() => {
     const savedCourse = sessionStorage.getItem("recentCourse");
     if (savedCourse) {
@@ -86,7 +84,7 @@ const SuccessPayment = () => {
     }
   }, []);
 
-  // حذف البيانات عند الخروج من الصفحة
+  
   const handleNavigation = (path) => {
     sessionStorage.removeItem("recentCourse");
     navigate(path);

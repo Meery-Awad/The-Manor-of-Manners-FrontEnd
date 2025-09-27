@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VideoContainer from "./VideoContainer";
 import JoinLeaveButtons from "./JoinLeaveButtons";
 import "./VideoCallPage.scss";
@@ -14,6 +14,10 @@ const VideoCallPage = () => {
   const [usersMap, setUsersMap] = useState({});
   const location = useLocation();
   const course = location.state?.course;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="VideoCall">
