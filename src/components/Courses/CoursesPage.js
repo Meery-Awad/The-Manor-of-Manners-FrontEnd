@@ -6,7 +6,6 @@ import SortAndFilter from './SortAndFilter';
 import SearchBox from './Search';
 
 const CoursesPage = () => {
-
   return (
     <div className="PageContaner">
       <>

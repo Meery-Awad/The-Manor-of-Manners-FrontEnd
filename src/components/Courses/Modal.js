@@ -241,7 +241,6 @@ const CourseModal = () => {
                 </div>
               )}
             </div>
-
             <div className="checkBox">
               <input type="checkbox" checked={recommended} onChange={handleCheckboxChange} />
               <label className="lable"> Recommended</label>

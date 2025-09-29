@@ -9,9 +9,9 @@ const BookedUsersModal = ({ show, onClose, users, userDetails, admin }) => {
 
   const uniqueUsers = users
     ? users.filter(
-        (user, index, self) =>
-          index === self.findIndex((u) => u.email === user.email)
-      )
+      (user, index, self) =>
+        index === self.findIndex((u) => u.email === user.email)
+    )
     : [];
 
   return (
@@ -22,7 +22,7 @@ const BookedUsersModal = ({ show, onClose, users, userDetails, admin }) => {
       <Modal.Body>
         {uniqueUsers.length > 0 ? (
           <ul className="booked-users-list">
-            {uniqueUsers.map((user, index) => (
+            {uniqueUsers.filter((user) => user.email !== admin.email).map((user, index) => (
               <li
                 key={index}
                 style={{
@@ -32,6 +32,7 @@ const BookedUsersModal = ({ show, onClose, users, userDetails, admin }) => {
                   marginBottom: "8px",
                 }}
               >
+    
                 <img
                   src={user.img}
                   alt={user.name}

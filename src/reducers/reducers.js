@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const reminders = (state = [], action) => {
 
@@ -10,7 +11,8 @@ const reminders = (state = [], action) => {
         const [allCourses, setAllCourses] = useState([])
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
-        //  const serverUrl = 'http://localhost:5000'
+
+        // const serverUrl = 'http://localhost:5000'
         const serverUrl = 'https://the-manor-of-manners-backend-7pw8.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
         const pageDescription = "Explore online etiquette courses at The Manor of Manners. Learn social skills, professional behavior, and proper manners through interactive video lessons and expert guidance.";
@@ -22,6 +24,8 @@ const reminders = (state = [], action) => {
                 id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: []
             };
         });
+
+
         const [updatedData, setUpdatedData] = useState(userDetails);
 
         const [selectedCourse, setSelectedCourse] = useState(0); // ✅ تخزين الكورس المحدد
@@ -89,6 +93,7 @@ const reminders = (state = [], action) => {
             localStorage.setItem("user", JSON.stringify(userDetails));
         }, [userDetails]);
 
+
         return {
             userDetails, setUserDetails,
             admin,
@@ -104,7 +109,8 @@ const reminders = (state = [], action) => {
             updatedData, setUpdatedData,
             courseValid,
             serverUrl,
-            pageDescription, pageKeywords
+            pageDescription, pageKeywords,
+
         };
     };
 

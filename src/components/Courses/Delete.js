@@ -4,7 +4,7 @@ import { useBetween } from "use-between";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const Delete = ({ index, setIndexDelete, onDelete }) => {
+const Delete = ({ index, setIndexDelete, onDelete , text }) => {
   const state = useSelector((state) => state.data);
 
   const { } = useBetween(state.useShareState);

@@ -13,8 +13,7 @@ const Header = () => {
   const { id, img } = userDetails;
 
   const navigate = useNavigate();
-  const location = useLocation();
-
+  
   const navItems = [
     { id: 1, label: 'Home' },
     { id: 2, label: 'Courses' },

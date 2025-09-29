@@ -136,7 +136,7 @@ const CoursesContaner = ({ type = "all" }) => {
           </div>
           <div className="details">
             <div className="bottomRow">
-              <div className="price">{item.price} $</div>
+              <div className="price">{item.price} £</div>
               {userDetails.email === admin.email && type !== "recommended" && (
                 <div
                   className="icons "

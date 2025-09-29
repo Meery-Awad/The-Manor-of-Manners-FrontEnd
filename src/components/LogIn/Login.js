@@ -50,19 +50,29 @@ const LoginPage = () => {
     const headers = { 'content-type': 'application/json;charset=UTF-8' };
 
     if (isRegister) {
+    const formData = new FormData();
+    formData.append("name", userDetails.name);
+    formData.append("email", userDetails.email);
+    formData.append("password", userDetails.password);
+    formData.append("confirmPassword", userDetails.confirmPassword);
+    if (fileInputRef.current.files[0]) {
+      formData.append("img", fileInputRef.current.files[0]); // الملف نفسه مو base64
+    }
+
+    axios.post(`${serverUrl}/api/users/register`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(() => {
+        setLoading(false);
+        navigate("/Login");
+      })
+      .catch((err) => {
+        setErorr(err.response?.data?.message);
+        setLoading(false);
+      });
+  } else {
       axios
-        .post(`${serverUrl}/api/users/register`, userDetails, { headers })
-        .then(() => {
-          setLoading(false);
-          navigate('/Login');
-        })
-        .catch((err) => {
-          setErorr(err.response?.data?.message);
-          setLoading(false);
-        });
-    } else {
-      axios
-        .post(`${serverUrl}/api/users/login`, { email, password }, { headers })
+        .post(`${serverUrl}/api/users/login`, { email, password })
         .then((res) => {
           const newUser = {
             id: res.data.id,
