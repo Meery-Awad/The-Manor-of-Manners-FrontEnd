@@ -7,13 +7,13 @@ import "./SuccessPayment.scss";
 
 const SuccessPayment = () => {
   const state = useSelector((state) => state.data);
-  const { userDetails, setUserDetails, courseValid, reload, setReload, serverUrl } = useBetween(state.useShareState);
+  const { userDetails, setUserDetails, courseValid, reload, setReload, serverUrl,Loading, setLoading } = useBetween(state.useShareState);
   const navigate = useNavigate();
   const addedRef = useRef(false);
   const [course, setCourse] = useState({});
 
   useEffect(() => {
-       
+    setLoading(true)
     const addCourse = async () => {
       if (addedRef.current) return;
 
@@ -29,7 +29,7 @@ const SuccessPayment = () => {
 
         const response = await axios.post(
           `${serverUrl}/api/payments/UserCoursesStatus`,
-          { userId: userDetails.id, courseId, userImg:userDetails.img, key: "1" }
+          { userId: userDetails.id, courseId, userImg: userDetails.img, key: "1" }
         );
 
         const { course1 } = response.data;
@@ -63,8 +63,9 @@ const SuccessPayment = () => {
           );
 
           addedRef.current = true;
-         
           setReload(!reload)
+          if(course.ValidDate)
+          setLoading(false)
 
         }
       } catch (err) {
@@ -84,30 +85,33 @@ const SuccessPayment = () => {
     }
   }, []);
 
-  
+
   const handleNavigation = (path) => {
     sessionStorage.removeItem("recentCourse");
     navigate(path);
   };
 
   return (
-    <div className="successCont">
-      <h2>✅ Payment Successful</h2>
-      <p>Your course has been added with booking status!</p>
-      {course.date && course.ValidDate && (
-        <p style={{ color: "rgb(243, 98, 98)" }}>
-          {`${courseValid || course.name} (${course.date}) - (${course.ValidDate})`}
-        </p>
-      )}
-      <div className="buttons">
-        <button className="backBtn" onClick={() => handleNavigation("/Courses")}>
-          Back to Courses
-        </button>
-        <button className="backBtn" onClick={() => handleNavigation("/Profile")}>
-          Go to Profile
-        </button>
+    <>
+      {course.ValidDate && <div className="successCont">
+        <h2>✅ Payment Successful</h2>
+        <p>Your course has been added with booking status!</p>
+        {course.date && course.ValidDate && (
+          <p style={{ color: "rgb(243, 98, 98)" }}>
+            {`${courseValid || course.name} (${course.date}) - (${course.ValidDate})`}
+          </p>
+        )}
+        <div className="buttons">
+          <button className="backBtn" onClick={() => handleNavigation("/Courses")}>
+            Back to Courses
+          </button>
+          <button className="backBtn" onClick={() => handleNavigation("/Profile")}>
+            Go to Profile
+          </button>
+        </div>
       </div>
-    </div>
+      }
+    </>
   );
 };
 
