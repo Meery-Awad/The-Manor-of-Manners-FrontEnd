@@ -1,45 +1,53 @@
+// SuccessPayment.scss
 @import '../../App.scss';
-
 .successCont {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 70vh;
-  text-align: center;
-//   background: linear-gradient(135deg, $Second-Color, #f0f8ff);
+ 
   padding: 2rem;
-  
-  margin: $top auto;
-  max-width: 500px;
+  text-align: center;
 
   h2 {
-    font-size: 2rem;
-    color: #0a6e8c;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #16a34a;
     margin-bottom: 1rem;
   }
 
   p {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
   }
 
-  .backBtn {
-    background-color: $First-Color;
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 5px;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 
-    &:hover {
-      background-color: $Second-Color;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    @media (min-width: 640px) {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .backBtn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      border: none;
+      background: $First_Color;
+      color: #fff;
+      transition: all 0.2s ease;
+
+      &:hover {
+        box-shadow: 1px 1px 1px $First_Color;
+      }
     }
   }
 }

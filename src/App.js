@@ -14,6 +14,7 @@ import Loading from "./components/Loading/Loading";
 import AboutUs from "./components/About us/AboutUs";
 import ContactUs from "./components/Contact us/ContactUs";
 import Footer from "./components/Footer/Footer";
+import PaymentFailedPage from "./components/Courses/CanceledPayment";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/Success" element={<SuccessPayment />} />
             <Route path="/About us" element={<AboutUs />} />
             <Route path="/Contact us" element={<ContactUs />} />
+            <Route path="/Payment_Failed" element = {<PaymentFailedPage/>}/>
             {/* other rotes  */}
           
         </Routes>

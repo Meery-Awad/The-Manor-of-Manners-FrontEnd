@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+
 
 const reminders = (state = [], action) => {
 
@@ -12,7 +12,7 @@ const reminders = (state = [], action) => {
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
 
-        // const serverUrl = 'http://localhost:5000'
+        //  const serverUrl = 'http://localhost:5000'
         const serverUrl = 'https://the-manor-of-manners-backend-7pw8.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
         const pageDescription = "Explore online etiquette courses at The Manor of Manners. Learn social skills, professional behavior, and proper manners through interactive video lessons and expert guidance.";

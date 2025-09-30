@@ -94,6 +94,7 @@ const SuccessPayment = () => {
   return (
     <>
       {course.ValidDate && <div className="successCont">
+         <div className="card simple">
         <h2>✅ Payment Successful</h2>
         <p>Your course has been added with booking status!</p>
         {course.date && course.ValidDate && (
@@ -108,6 +109,7 @@ const SuccessPayment = () => {
           <button className="backBtn" onClick={() => handleNavigation("/Profile")}>
             Go to Profile
           </button>
+        </div>
         </div>
       </div>
       }
