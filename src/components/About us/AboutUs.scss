@@ -1,0 +1,75 @@
+@import '../../App.scss';
+
+.about-us {
+ 
+    margin-top: $top + 0.5rem  ;
+    margin-bottom: $top - 5rem;
+     
+    .container {
+        width: $width;
+        h1 {
+            @include h1;
+            margin-bottom: 2rem
+           
+        }
+        .content {
+            @include flexBox;
+            flex-wrap: wrap;
+            gap: 30px;
+
+            .text {
+                flex: 1 1 400px;
+                font-size: 1.1rem;
+                color: $Font-Color;
+                line-height: 1.9;
+
+                p {
+                    margin-bottom: 35px;
+                }
+            }
+
+            .image {
+                flex: 1 1 30%;
+
+                img {
+                    width: 100%;
+                   
+                    height: 60vh;
+                    border-radius: 15px;
+                    object-fit: cover;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                }
+            }
+        }
+    }
+}
+
+/* Animations */
+[data-animate] {
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+[data-animate="slide-left"] {
+    transform: translateX(-100px);
+}
+
+[data-animate="slide-right"] {
+    transform: translateX(100px);
+}
+
+.slide-left {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+.slide-right {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+@media (max-width: 768px) {
+    .about-us .content {
+        flex-direction: column;
+    }
+}

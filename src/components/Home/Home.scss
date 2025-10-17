@@ -1,0 +1,108 @@
+@import '../../App.scss';
+
+/* reusable mixin for the section line (icon + horizontal line) */
+
+.Home {
+  margin-top: $top;
+
+  .all-courses {
+    text-decoration: underline;
+    color: $First-Color;
+  }
+
+  .recommended {
+    .line-container {
+      @include section-line;
+    }
+  }
+
+  // --- What We Offer Section ---
+ .what-we-offer {
+ 
+  .line-container {
+    @include section-line;
+  }
+
+  .offer-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap; // responsive
+
+    .offer-text {
+      flex: 1 1 400px;
+      max-width: 500px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          position: relative;
+          padding-left: 1.8rem;
+          margin-bottom: 1rem;
+          font-size: 1.05rem;
+          color: #444;
+          line-height: 1.7;
+
+          &::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: $Second-Color;
+            font-size: 1.5rem;
+            line-height: 1;
+          }
+        }
+      }
+    }
+
+    .offer-image {
+      flex: 1 1 350px;
+      max-width: 450px;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+
+  // --- Follow Us Section ---
+  .follow-us {
+    margin-top: 4rem;
+    text-align: center;
+
+    .line-container {
+      @include section-line;
+    }
+
+    .social-icons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+
+      a {
+        font-size: 1.8rem;
+        color: $First-Color;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: $Second-Color;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
