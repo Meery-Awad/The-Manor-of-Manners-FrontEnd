@@ -55,7 +55,8 @@ const ContactUsUser = () => {
           className="header-img"
         />
         <h1>Contact Us</h1>
-        <p>{content}</p>
+        <p> Your journey towards refined confidence begins here.<br/>
+          {content}</p>
       </div>
 
       <div className="contact-container">

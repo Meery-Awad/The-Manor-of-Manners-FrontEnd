@@ -2,24 +2,40 @@ import './Home.scss'
 import PromoVideo from "./PromoVideo";
 import CoursesContaner from '../Courses/CoursesCont';
 import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import { useSelector } from 'react-redux';
 import { useBetween } from 'use-between';
-import image from '../../images/img.jpg'
+import image from '../../images/img.jpg';
+import waving from '../../images/waving.gif'
 
 const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const [showVideo, setShowVideo] = useState(false);
+
   const state = useSelector((state) => state.data);
   const { pageDescription, pageKeٍywords, HomePageKeyWords, websiteTitle } = useBetween(state.useShareState);
 
   const contentPoints = [
-    "We offer online etiquette lessons for people of all ages and backgrounds, taught by an experienced instructor.",
-    "Our courses cover a variety of styles and approaches at affordable prices, making it easy for everyone to learn proper manners.",
-    "In addition, we provide free videos shared by Ms. Julie to give everyone a chance to practice proper etiquette."
+    {
+      title: "Youth & Students — Confidence for every stage.",
+      desc: "We help young people develop social awareness, communication skills, and self-assurance — preparing them for interviews, internships, and new experiences."
+    },
+    {
+      title: "Professionals & Entrepreneurs — Presence that supports ambition.",
+      desc: "Learn to communicate with clarity and confidence, refine your image, and represent your brand or career with authenticity."
+    },
+    {
+      title: "International Etiquette — Confidence across cultures.",
+      desc: "Navigate professional and social settings globally with ease, cultural awareness, and composure."
+    },
+    {
+      title: "Private Coaching — Personalised refinement.",
+      desc: "One-to-one sessions designed to enhance posture, presence, and communication in a way that feels natural and authentic."
+    }
   ];
 
   return (
@@ -28,13 +44,49 @@ const Home = () => {
         <link rel="canonical" href="https://madeformanners.com" />
         <title>Home | {websiteTitle}</title>
         <meta name="description" content={pageDescription} />
-        <meta name="keywords" content={`${pageKeٍywords} ${HomePageKeyWords}}`} />
+        <meta name="keywords" content={`${pageKeٍywords} ${HomePageKeyWords}`} />
         <meta property="og:title" content={`Home - ${websiteTitle}`} />
         <meta property="og:description" content={pageDescription} />
       </Helmet>
 
-      <PromoVideo />
+      {/* --- 1. Hero Section --- */}
+      <section className="hero">
+        <h1>Authenticity refined. Confidence reimagined.</h1>
+        <p className="subheading">Where etiquette becomes empowerment.</p>
+      </section>
 
+      {/* --- 2. Intro Text + 3. Video Section (مختصر + زر التشغيل) --- */}
+      <section className="intro">
+        <div className="recommended">
+
+          <p className="topic">Welcome to Made for Manners </p>
+          <div className="line-container">
+            <span className="line"></span>
+            <i ><img src={waving} alt="waving " /></i>
+
+          </div>
+        </div>
+        <div className='introCont'>
+        <p>
+          Welcome to Made for Manners, where timeless refinement meets real-world confidence.
+          Here, etiquette isn’t about rules — it’s about freedom and expression.
+        </p>
+        <p>
+          Our approach transforms etiquette into a tool for confidence, communication, and grace.
+        </p>
+        <p>
+          Watch how modern manners can empower you to connect and carry yourself with ease.
+        </p>
+        </div>
+
+        <button className="cta-btn" onClick={() => setShowVideo(!showVideo)}>
+          ▶ Watch the Video
+        </button>
+
+        {showVideo && <PromoVideo />}
+      </section>
+
+      {/* --- Recommended Section --- */}
       <div className='recommended'>
         <p className="topic">Recommended</p>
         <div className="line-container">
@@ -45,13 +97,12 @@ const Home = () => {
         <div className='noti'>
           Please be advised that once the payment for the course has been completed, cancellations and refunds are not permitted.
         </div>
-
         <CoursesContaner type="recommended" />
       </div>
 
-      {/* --- What We Offer Section --- */}
+      {/* --- 4. What We Offer + Programmes Overview --- */}
       <div className="recommended what-we-offer ">
-        <p className="topic">What We Offer</p>
+        <p className="topic">Online Videos We Offer</p>
         <div className="line-container">
           <span className="line"></span>
           <i className="fas fa-gem"></i>
@@ -64,21 +115,35 @@ const Home = () => {
           <div className="offer-text">
             <ul>
               {contentPoints.map((point, index) => (
-                <li key={index}>{point}</li>
+                <li key={index}>
+                  <strong>{point.title}</strong>
+                  <br />
+                  {point.desc}
+                </li>
               ))}
             </ul>
           </div>
-
         </div>
       </div>
 
-      {/* --- Follow Us Section --- */}
+      {/* --- 5. Follow Us Section --- */}
       <div className="recommended follow-us">
         <p className="topic">Follow Us on Social Media</p>
         <div className="line-container">
           <span className="line"></span>
           <i className="fas fa-heart"></i>
         </div>
+        {/* --- 6. Philosophy Section --- */}
+        <section className="philosophy">
+          <p>
+            Grace isn’t something you’re born with — it’s something you practise.
+            When etiquette becomes natural, confidence follows.
+          </p>
+          <p>
+            At Made for Manners, refinement is not about appearing polished;
+            it’s about feeling prepared and confident in every moment.
+          </p>
+        </section>
         <div className="social-icons">
           <a href="https://www.instagram.com/madeformanners/" target="_blank" rel="noopener noreferrer" aria-label="instagram" title='instagram'>
             <i className="fab fa-instagram"></i>
@@ -94,6 +159,7 @@ const Home = () => {
           </a>
         </div>
       </div>
+
 
     </div>
   );

@@ -4,6 +4,7 @@
     z-index: 1000;
     background-color: $First-Color;
 
+
     ul {
         text-decoration: none;
         padding: 0;
@@ -24,8 +25,9 @@
         background-color: $btn-hover-bg !important;
         color: $First-Color !important;
     }
-    img{
+
+    img {
         height: 80px;
-       
+
     }
 }

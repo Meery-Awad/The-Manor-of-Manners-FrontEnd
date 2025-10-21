@@ -19,8 +19,9 @@ const CourseModal = () => {
     reload,
     setReload,
     setEditOrAdd,
-    serverUrl
+    serverUrl,
   } = useBetween(state.useShareState);
+  
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -30,10 +31,11 @@ const CourseModal = () => {
   const { name, description, date, time, endtime, img, price, recommended, categories: selectedCategories = [] } = courseDetails;
 
   const categories = [
-    { id: 0, level: 'Kids', icon: '', color: 'blue' },
-    { id: 1, level: 'Adults', icon: '', color: 'green' },
-    { id: 2, level: 'Girls', icon: '', color: 'pink' },
-    { id: 3, level: 'Important figures', icon: '', color: 'gold' }
+    { id: 0, level: 'Youth', icon: '', color: 'blue' },
+    { id: 1, level: 'Student', icon: '', color: 'green' },
+    { id: 2, level: 'Professional & Executive', icon: '', color: 'pink' },
+    { id: 3, level: 'International Etiquette', icon: '', color: 'gold' },
+    { id: 4, level: 'Private Coaching', icon: '', color: 'gold' }
   ];
 
   const initCourseModal = () => {
